@@ -1,0 +1,96 @@
+/* ─── App chrome design tokens ──────────────────────────────────────────── */
+:root {
+  --app-bg:           #0c0c0f;
+  --app-surface:      #141418;
+  --app-surface-2:    #1e1e24;
+  --app-border:       rgba(255 255 255 / 0.10);
+  --app-border-hover: rgba(255 255 255 / 0.20);
+  --app-text:         #f0f0f5;
+  --app-text-2:       #9494a8;
+  --app-text-3:       #5c5c74;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Easing scale */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Layout shell ──────────────────────────────────────────────────────── */
+.paleta-app {
+  min-height: 100vh;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+@media (max-width: 700px) {
+  .paleta-app { padding: 32px 16px 64px; gap: 28px; }
+}
+
+/* Wrapper div that receives the CVD filter — must inherit the same gap */
+.paleta-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Each section-id wrapper must also participate in the gap */
+.paleta-sections > div {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+@media (max-width: 700px) {
+  .paleta-sections { gap: 28px; }
+}
+
+.paleta-wordmark {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: var(--app-text);
+  opacity: 0.9;
+}
+
+/* ─── Utility ───────────────────────────────────────────────────────────── */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -1,0 +1,49 @@
+.msd {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.msd-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.msd-header__line {
+  flex: 1;
+  height: 1px;
+  background: var(--app-border);
+}
+
+.msd-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+  flex-shrink: 0;
+}
+
+.msd-tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.msd-track {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.msd-track-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+}

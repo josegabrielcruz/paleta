@@ -1,0 +1,168 @@
+/* ── Section wrapper ──────────────────────────────────────────────────────── */
+.ep {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.ep-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ep-header__line {
+  flex: 1;
+  height: 1px;
+  background: var(--app-border);
+}
+
+.ep-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+  flex-shrink: 0;
+}
+
+/* ── Light / Dark toggle (mirrors ContrastMatrix) ────────────────────────── */
+.ep-toggle {
+  display: flex;
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ep-toggle__btn {
+  padding: 3px 10px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  color: var(--app-text-3);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ep-toggle__btn + .ep-toggle__btn {
+  border-left: 1px solid var(--app-border);
+}
+
+.ep-toggle__btn--active {
+  background: var(--app-surface-2);
+  color: var(--app-text);
+}
+
+/* ── Format tab bar ──────────────────────────────────────────────────────── */
+.ep-formats {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ep-fmt-btn {
+  padding: 4px 12px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--app-border);
+  background: transparent;
+  color: var(--app-text-3);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.ep-fmt-btn:hover {
+  border-color: var(--app-border-hover);
+  color: var(--app-text-2);
+}
+
+.ep-fmt-btn--active {
+  background: var(--app-surface-2);
+  color: var(--app-text);
+  border-color: var(--app-border-hover);
+}
+
+/* ── Code preview ────────────────────────────────────────────────────────── */
+.ep-preview-wrap {
+  position: relative;
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-lg);
+  background: var(--app-surface);
+  overflow: hidden;
+}
+
+.ep-preview {
+  margin: 0;
+  padding: 20px;
+  overflow-x: auto;
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.ep-preview code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--app-text-2);
+  white-space: pre;
+  display: block;
+}
+
+/* ── Action bar ──────────────────────────────────────────────────────────── */
+.ep-actions {
+  display: flex;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--app-border);
+  background: var(--app-surface);
+}
+
+.ep-btn {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 5px 14px;
+  cursor: pointer;
+  border: 1px solid var(--app-border);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.ep-btn--copy {
+  background: var(--app-surface-2);
+  color: var(--app-text);
+  min-width: 72px;
+}
+
+.ep-btn--copy:hover {
+  border-color: var(--app-border-hover);
+}
+
+.ep-btn--download {
+  background: transparent;
+  color: var(--app-text-3);
+}
+
+.ep-btn--download:hover {
+  color: var(--app-text-2);
+  border-color: var(--app-border-hover);
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ep-toggle__btn,
+  .ep-fmt-btn,
+  .ep-btn {
+    transition: none;
+  }
+}

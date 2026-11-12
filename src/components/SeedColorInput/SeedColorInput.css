@@ -1,0 +1,59 @@
+.seed-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Color picker swatch ── */
+.seed-input__picker-wrap {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--app-border);
+  transition: border-color 0.15s;
+}
+.seed-input__picker-wrap:hover {
+  border-color: var(--app-border-hover);
+}
+
+.seed-input__picker {
+  position: absolute;
+  inset: -4px;          /* extends past the border to fill the rounded container */
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+}
+
+/* ── Text input ── */
+.seed-input__text {
+  width: 120px;
+  background: var(--app-surface-2);
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-sm);
+  color: var(--app-text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 7px 10px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.seed-input__text:focus {
+  border-color: var(--app-border-hover);
+}
+.seed-input__text[data-invalid='true'] {
+  border-color: rgba(239 68 68 / 0.6);
+  color: rgb(239 68 68);
+}
+
+/* ── OKLCH readout ── */
+.seed-input__meta {
+  font-size: 11px;
+  color: var(--app-text-3);
+  white-space: nowrap;
+}

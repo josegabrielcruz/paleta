@@ -1,0 +1,83 @@
+.disc-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.disc-bar__label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+  flex-shrink: 0;
+}
+
+/* ── Preset swatches ─────────────────────────────────────────────────────── */
+.disc-bar__presets {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.disc-bar__preset {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  padding: 5px 6px;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.disc-bar__preset:hover {
+  border-color: var(--app-border-hover);
+  background: var(--app-surface-2);
+}
+
+.disc-bar__dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0 0 0 / 0.12);
+}
+
+/* ── Actions ─────────────────────────────────────────────────────────────── */
+.disc-bar__actions {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.disc-bar__btn {
+  padding: 4px 12px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--app-border);
+  background: transparent;
+  color: var(--app-text-3);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.disc-bar__btn:hover {
+  border-color: var(--app-border-hover);
+  color: var(--app-text-2);
+}
+
+.disc-bar__btn--share {
+  min-width: 76px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disc-bar__preset,
+  .disc-bar__btn { transition: none; }
+}

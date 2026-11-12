@@ -1,0 +1,43 @@
+.dlp {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.dlp-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dlp-label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* Light track: shown against a white-ish surface so swatches read correctly */
+.dlp-track--light {
+  padding: 1.25rem;
+  border-radius: 10px;
+  background: #f4f4f5;
+}
+
+.dlp-track--light .dlp-label {
+  color: rgba(0, 0, 0, 0.40);
+}
+
+/* Dark track: standard dark chrome, matching app background */
+.dlp-track--dark {
+  padding: 1.25rem;
+  border-radius: 10px;
+  background: #18181b;
+}
+
+.dlp-track--dark .dlp-label {
+  color: rgba(255, 255, 255, 0.35);
+}

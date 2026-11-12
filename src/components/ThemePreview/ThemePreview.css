@@ -1,0 +1,260 @@
+/* ── Section wrapper ──────────────────────────────────────────────────────── */
+.theme-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.theme-preview__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-preview__header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--app-border);
+}
+
+.theme-preview__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+  flex-shrink: 0;
+}
+
+.theme-preview__panes {
+  display: flex;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .theme-preview__panes { flex-direction: column; }
+}
+
+/* ── Pane chrome ─────────────────────────────────────────────────────────── */
+.tp-pane {
+  flex: 1;
+  min-width: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--app-border);
+}
+
+.tp-mode-label {
+  padding: 7px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+  background: var(--app-surface);
+  border-bottom: 1px solid var(--app-border);
+}
+
+/* ── Shell layout ────────────────────────────────────────────────────────── */
+.tp-shell {
+  display: flex;
+  height: 220px;
+  background-color: var(--tp-bg);
+  transition: background-color 0.45s var(--ease-in-out);
+}
+
+/* ── Sidebar nav ─────────────────────────────────────────────────────────── */
+.tp-nav {
+  width: 96px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+  background-color: var(--tp-surface);
+  border-right: 1px solid var(--tp-border);
+  transition:
+    background-color 0.45s var(--ease-in-out),
+    border-color 0.45s var(--ease-in-out);
+}
+
+.tp-nav-logo {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: var(--tp-brand);
+  margin: 0 4px 8px;
+  transition: background-color 0.45s var(--ease-in-out);
+}
+
+.tp-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--tp-text-muted);
+  overflow: hidden;
+  white-space: nowrap;
+  transition:
+    background-color 0.45s var(--ease-in-out),
+    color 0.45s var(--ease-in-out);
+}
+
+.tp-nav-item--active {
+  background-color: var(--tp-nav-active-bg);
+  color: var(--tp-nav-active-text);
+}
+
+.tp-nav-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0.45;
+  flex-shrink: 0;
+  transition: background-color 0.45s var(--ease-in-out);
+}
+
+.tp-nav-item--active .tp-nav-dot {
+  background-color: var(--tp-brand);
+  opacity: 1;
+}
+
+/* ── Main content area ───────────────────────────────────────────────────── */
+.tp-main {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ── Card ────────────────────────────────────────────────────────────────── */
+.tp-card {
+  background-color: var(--tp-surface);
+  border: 1px solid var(--tp-border);
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition:
+    background-color 0.45s var(--ease-in-out),
+    border-color 0.45s var(--ease-in-out);
+}
+
+.tp-card-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--tp-text);
+  transition: color 0.45s var(--ease-in-out);
+}
+
+.tp-card-body {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  line-height: 1.55;
+  color: var(--tp-text-muted);
+  transition: color 0.45s var(--ease-in-out);
+}
+
+.tp-card-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.tp-btn {
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: default;
+  transition:
+    background-color 0.45s var(--ease-in-out),
+    color 0.45s var(--ease-in-out),
+    border-color 0.45s var(--ease-in-out);
+}
+
+.tp-btn--brand {
+  background-color: var(--tp-brand);
+  color: var(--tp-brand-fg);
+}
+
+.tp-btn--ghost {
+  background-color: transparent;
+  color: var(--tp-text-muted);
+  border: 1px solid var(--tp-border-strong);
+}
+
+/* ── Stat row ────────────────────────────────────────────────────────────── */
+.tp-stat-row {
+  display: flex;
+  gap: 8px;
+}
+
+.tp-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.tp-stat-label {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  color: var(--tp-text-muted);
+  transition: color 0.45s var(--ease-in-out);
+}
+
+.tp-stat-bar {
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--tp-surface-2);
+  overflow: hidden;
+  transition: background-color 0.45s var(--ease-in-out);
+}
+
+.tp-stat-fill {
+  height: 100%;
+  background-color: var(--tp-brand);
+  border-radius: 2px;
+  transition: background-color 0.45s var(--ease-in-out);
+}
+
+.tp-stat:nth-child(1) .tp-stat-fill { width: 72%; }
+.tp-stat:nth-child(2) .tp-stat-fill { width: 48%; }
+.tp-stat:nth-child(3) .tp-stat-fill { width: 83%; }
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .tp-shell,
+  .tp-nav,
+  .tp-nav-logo,
+  .tp-nav-item,
+  .tp-nav-dot,
+  .tp-card,
+  .tp-card-title,
+  .tp-card-body,
+  .tp-btn,
+  .tp-stat-label,
+  .tp-stat-bar,
+  .tp-stat-fill {
+    transition: none;
+  }
+}

@@ -1,0 +1,500 @@
+/* ── Section wrapper ──────────────────────────────────────────────────────── */
+.cp {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+/* ── Both-pane side-by-side layout ───────────────────────────────────────────── */
+.cp-both {
+  display: flex;
+  gap: 10px;
+}
+
+.cp-both .cp-pane {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 700px) {
+  .cp-both { flex-direction: column; }
+}
+
+/* System slot button gets a subtle three-color indicator */
+.cp-toggle__btn--system {
+  letter-spacing: 0.04em;
+}
+
+.cp-toggle__btn--system.cp-toggle__btn--active {
+  background: linear-gradient(135deg, rgba(59 130 246 / 0.2), rgba(168 85 247 / 0.2));
+  color: var(--app-text);
+  border-color: rgba(168 85 247 / 0.4);
+}
+
+/* Label shown on each pane when in both mode */
+.cp-pane-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cp-text-muted);
+  margin-bottom: 16px;
+  transition: color 0.45s var(--ease-in-out);
+}
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.cp-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cp-header__line {
+  flex: 1;
+  height: 1px;
+  background: var(--app-border);
+}
+
+.cp-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+  flex-shrink: 0;
+}
+
+/* ── Mode toggle (mirrors ContrastMatrix pattern) ────────────────────────── */
+.cp-toggle {
+  display: flex;
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.cp-toggle__btn {
+  padding: 3px 10px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  color: var(--app-text-3);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.cp-toggle__btn + .cp-toggle__btn {
+  border-left: 1px solid var(--app-border);
+}
+
+.cp-toggle__btn--active {
+  background: var(--app-surface-2);
+  color: var(--app-text);
+}
+
+/* ── Pane shell ──────────────────────────────────────────────────────────── */
+.cp-pane {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--app-border);
+  padding: 24px;
+  background-color: var(--cp-bg);
+  transition: background-color 0.45s var(--ease-in-out);
+}
+
+/* ── Section dividers ────────────────────────────────────────────────────── */
+.cp-section {
+  padding-top: 20px;
+  border-top: 1px solid var(--cp-border);
+  transition: border-color 0.45s var(--ease-in-out);
+}
+
+.cp-section:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.cp-section + .cp-section {
+  margin-top: 0;
+}
+
+.cp-section-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cp-text-muted);
+  margin-bottom: 14px;
+  transition: color 0.45s var(--ease-in-out);
+}
+
+/* ── Flex row utility ────────────────────────────────────────────────────── */
+.cp-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cp-row--wrap {
+  flex-wrap: wrap;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.cp-btn {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 0 14px;
+  height: 32px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: default;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.45s var(--ease-in-out),
+    color 0.45s var(--ease-in-out),
+    border-color 0.45s var(--ease-in-out),
+    opacity 0.2s ease;
+}
+
+.cp-btn--sm {
+  height: 26px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.cp-btn--filled {
+  background-color: var(--cp-brand);
+  color: var(--cp-brand-fg);
+}
+
+.cp-btn--outline {
+  background-color: transparent;
+  color: var(--cp-brand);
+  border-color: var(--cp-brand);
+}
+
+.cp-btn--ghost {
+  background-color: transparent;
+  color: var(--cp-text-muted);
+  border-color: var(--cp-border);
+}
+
+.cp-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+/* ── Badges ──────────────────────────────────────────────────────────────── */
+.cp-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.45s var(--ease-in-out),
+    color 0.45s var(--ease-in-out),
+    border-color 0.45s var(--ease-in-out);
+}
+
+.cp-badge--filled {
+  background-color: var(--cp-brand);
+  color: var(--cp-brand-fg);
+}
+
+.cp-badge--outline {
+  background-color: transparent;
+  color: var(--cp-text-muted);
+  border-color: var(--cp-border);
+}
+
+.cp-badge--muted {
+  background-color: var(--cp-muted);
+  color: var(--cp-text-muted);
+}
+
+.cp-badge--accent {
+  background-color: var(--cp-accent);
+  color: var(--cp-brand-fg);
+}
+
+/* ── Card ────────────────────────────────────────────────────────────────── */
+.cp-card {
+  background-color: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 420px;
+  transition:
+    background-color 0.45s var(--ease-in-out),
+    border-color 0.45s var(--ease-in-out);
+}
+
+.cp-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cp-card__title {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cp-text);
+  flex: 1;
+  transition: color 0.45s var(--ease-in-out);
+}
+
+.cp-card__body {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--cp-text-muted);
+  transition: color 0.45s var(--ease-in-out);
+}
+
+.cp-card__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+/* ── Form ────────────────────────────────────────────────────────────────── */
+.cp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 320px;
+}
+
+.cp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cp-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cp-text);
+  transition: color 0.45s var(--ease-in-out);
+}
+
+.cp-label--error {
+  color: #ef4444;
+}
+
+.cp-input {
+  height: 34px;
+  padding: 0 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background-color: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 5px;
+  color: var(--cp-text);
+  outline: none;
+  width: 100%;
+  cursor: default;
+  transition:
+    background-color 0.45s var(--ease-in-out),
+    border-color 0.45s var(--ease-in-out),
+    color 0.45s var(--ease-in-out),
+    box-shadow 0.2s ease;
+}
+
+.cp-input::placeholder {
+  color: var(--cp-text-muted);
+}
+
+.cp-input--focused {
+  border-color: var(--cp-brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cp-brand) 22%, transparent);
+}
+
+/* Error state uses a hardcoded system red — not palette-derived */
+.cp-input--error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239 68 68 / 0.18);
+}
+
+.cp-hint {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--cp-text-muted);
+  transition: color 0.45s var(--ease-in-out);
+}
+
+.cp-error-msg {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: #ef4444;
+}
+
+/* ── Alerts ──────────────────────────────────────────────────────────────── */
+.cp-alerts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cp-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border-left-width: 3px;
+  border-left-style: solid;
+}
+
+.cp-alert__icon {
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  line-height: 1;
+}
+
+.cp-alert__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cp-alert__title {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.cp-alert__msg {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* Info — tinted from palette using color-mix() */
+.cp-alert--info {
+  background-color: color-mix(in srgb, var(--cp-brand) 10%, var(--cp-bg));
+  border-left-color: var(--cp-brand);
+  border-top: 1px solid color-mix(in srgb, var(--cp-brand) 25%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--cp-brand) 25%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--cp-brand) 25%, transparent);
+  transition: background-color 0.45s var(--ease-in-out), border-color 0.45s var(--ease-in-out);
+}
+
+.cp-alert--info .cp-alert__icon,
+.cp-alert--info .cp-alert__title {
+  color: var(--cp-brand);
+  transition: color 0.45s var(--ease-in-out);
+}
+
+.cp-alert--info .cp-alert__msg {
+  color: var(--cp-text);
+  transition: color 0.45s var(--ease-in-out);
+}
+
+/* Neutral — palette surface + border */
+.cp-alert--neutral {
+  background-color: var(--cp-surface);
+  border-left-color: var(--cp-border);
+  border-top: 1px solid var(--cp-border);
+  border-right: 1px solid var(--cp-border);
+  border-bottom: 1px solid var(--cp-border);
+  transition: background-color 0.45s var(--ease-in-out), border-color 0.45s var(--ease-in-out);
+}
+
+.cp-alert--neutral .cp-alert__icon,
+.cp-alert--neutral .cp-alert__title,
+.cp-alert--neutral .cp-alert__msg {
+  color: var(--cp-text-muted);
+  transition: color 0.45s var(--ease-in-out);
+}
+
+/* Error — hardcoded system red */
+.cp-alert--error {
+  background-color: rgba(239 68 68 / 0.08);
+  border-left-color: #ef4444;
+  border-top: 1px solid rgba(239 68 68 / 0.2);
+  border-right: 1px solid rgba(239 68 68 / 0.2);
+  border-bottom: 1px solid rgba(239 68 68 / 0.2);
+}
+
+.cp-alert--error .cp-alert__icon,
+.cp-alert--error .cp-alert__title {
+  color: #ef4444;
+}
+
+.cp-alert--error .cp-alert__msg {
+  color: var(--cp-text);
+  transition: color 0.45s var(--ease-in-out);
+}
+
+/* Placeholder — dashed, dimmed, reserved for Phase 7 */
+.cp-alert--placeholder {
+  background-color: transparent;
+  border-left-color: var(--cp-border);
+  border-top: 1px dashed var(--cp-border);
+  border-right: 1px dashed var(--cp-border);
+  border-bottom: 1px dashed var(--cp-border);
+  border-left-style: dashed;
+  opacity: 0.45;
+  cursor: default;
+  transition: border-color 0.45s var(--ease-in-out);
+}
+
+.cp-alert--placeholder .cp-alert__icon,
+.cp-alert--placeholder .cp-alert__title,
+.cp-alert--placeholder .cp-alert__msg {
+  color: var(--cp-text-muted);
+  transition: color 0.45s var(--ease-in-out);
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .cp-toggle__btn,
+  .cp-pane,
+  .cp-section,
+  .cp-section-label,
+  .cp-btn,
+  .cp-badge,
+  .cp-card,
+  .cp-card__title,
+  .cp-card__body,
+  .cp-label,
+  .cp-input,
+  .cp-hint,
+  .cp-alert--info,
+  .cp-alert--neutral,
+  .cp-alert--placeholder,
+  .cp-alert--info .cp-alert__icon,
+  .cp-alert--info .cp-alert__title,
+  .cp-alert--info .cp-alert__msg,
+  .cp-alert--neutral .cp-alert__icon,
+  .cp-alert--neutral .cp-alert__title,
+  .cp-alert--neutral .cp-alert__msg,
+  .cp-alert--error .cp-alert__msg,
+  .cp-alert--placeholder .cp-alert__icon,
+  .cp-alert--placeholder .cp-alert__title,
+  .cp-alert--placeholder .cp-alert__msg {
+    transition: none;
+  }
+}

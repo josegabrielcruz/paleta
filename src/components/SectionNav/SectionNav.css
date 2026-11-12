@@ -1,0 +1,75 @@
+/* Fixed to the right of the content column, centered vertically */
+.section-nav {
+  position: fixed;
+  right: max(16px, calc((100vw - 1100px) / 2 - 44px));
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  /* Hide on viewports too narrow to have empty space beside the content */
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .section-nav { display: flex; }
+}
+
+/* ── Nav item ────────────────────────────────────────────────────────────── */
+.section-nav__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  /* Label is hidden by default, slides in on hover */
+  flex-direction: row-reverse;
+}
+
+.section-nav__dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--app-text-3);
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.section-nav__item:hover .section-nav__dot,
+.section-nav__item--active .section-nav__dot {
+  background: var(--app-text-2);
+  transform: scale(1.5);
+}
+
+.section-nav__item--active .section-nav__dot {
+  background: var(--app-text);
+  transform: scale(1.8);
+}
+
+.section-nav__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.section-nav__item:hover .section-nav__label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.section-nav__item--active .section-nav__label {
+  opacity: 0.6;
+  transform: translateX(0);
+}

@@ -1,0 +1,67 @@
+/* ── Three-column seed picker ─────────────────────────────────────────────── */
+.seed-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+@media (max-width: 700px) {
+  .seed-row { grid-template-columns: 1fr; gap: 16px; }
+}
+/* ── Column ──────────────────────────────────────────────────────────────── */
+.seed-row__col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.seed-row__label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+}
+
+/* ── Harmony suggestion chips ────────────────────────────────────────────── */
+.seed-row__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.seed-row__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px 3px 5px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--app-text-3);
+  background: transparent;
+  border: 1px solid var(--app-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.seed-row__chip:hover {
+  border-color: var(--app-border-hover);
+  color: var(--app-text-2);
+}
+
+.seed-row__chip-dot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0 0 0 / 0.15);
+  flex-shrink: 0;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .seed-row__chip { transition: none; }
+}
