@@ -8,6 +8,7 @@ import type { MultiSeeds } from './hooks/useMultiPalette'
 import { FadeInSection } from './components/FadeInSection'
 import { StickyControls } from './components/StickyControls'
 import { SectionNav } from './components/SectionNav'
+import { BrandInput } from './components/BrandInput'
 import SeedRow from './components/SeedRow'
 import SimulationBar from './components/SimulationBar'
 import DiscoveryBar from './components/DiscoveryBar'
@@ -123,6 +124,9 @@ export default function App() {
 
         {/* ref'd section so we know when it leaves the viewport */}
         <div ref={controlsRef} id="section-controls">
+          <motion.div {...mountItem(0)}>
+            <BrandInput onApply={setSeeds} />
+          </motion.div>
           <motion.div {...mountItem(0.08)}>
             <SeedRow
               primarySeed={seeds.primary}

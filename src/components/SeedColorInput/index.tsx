@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { parse, converter, formatHex } from 'culori'
+import { parse, converter } from 'culori'
 import './SeedColorInput.css'
 
 const toOklch = converter('oklch')

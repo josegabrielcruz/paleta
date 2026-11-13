@@ -1,4 +1,4 @@
-import { converter, formatHex, clampChroma } from 'culori'
+import { formatHex, clampChroma } from 'culori'
 import type { Oklch } from 'culori'
 
 const toHex = formatHex
