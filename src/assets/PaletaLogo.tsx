@@ -14,6 +14,7 @@ export function PaletaLogo({ height = 28, className, 'aria-hidden': ariaHidden }
       width="auto"
       className={className}
       aria-hidden={ariaHidden}
+      style={{width: "auto"}}
     >
       {/* Silhouette layer — uses currentColor so outline works in dark mode */}
       <path d="M155.5 485.5C155.5 465.065 172.065 448.5 192.5 448.5H199.5C219.935 448.5 236.5 465.065 236.5 485.5V606.5C236.5 626.935 219.935 643.5 199.5 643.5H192.5C172.065 643.5 155.5 626.935 155.5 606.5V485.5Z" fill="currentColor"/>

@@ -1,7 +1,6 @@
 import { forwardRef } from 'react'
 import { PaletaLogo } from '../../assets/PaletaLogo'
 import type { AISuggestion } from '../../hooks/useAISuggest'
-import FlameFillRoundIcon from '@iconify-react/coolicons/flame-fill-round';
 import './PaletteCard.css'
 
 interface PaletteCardProps {
@@ -47,7 +46,7 @@ export const PaletteCard = forwardRef<HTMLDivElement, PaletteCardProps>(
         </div>
 
         <div className="palette-card__footer">
-          <span className="palette-card__attribution">Generated with paleta <FlameFillRoundIcon height="18px" /></span>
+          <span className="palette-card__attribution">Generated with Paleta</span>
           <span className="palette-card__url">{window.location.hostname}</span>
         </div>
       </div>
