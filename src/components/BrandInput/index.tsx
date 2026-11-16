@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useAISuggest } from '../../hooks/useAISuggest'
 import type { MultiSeeds } from '../../hooks/useMultiPalette'
+import FlameFillRoundIcon from '@iconify-react/coolicons/flame-fill-round';
 import './BrandInput.css'
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -123,7 +124,7 @@ export function BrandInput({ onApply }: BrandInputProps) {
           >
             {isActive
               ? <span className="brand-input__spinner" aria-hidden="true" />
-              : 'Generate ✦'}
+              : <>Generate<FlameFillRoundIcon height="18px" /></>}
           </button>
         </div>
       </div>

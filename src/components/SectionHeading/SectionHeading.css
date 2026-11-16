@@ -1,0 +1,27 @@
+.section-heading {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--app-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: border-color 0.25s var(--ease-in-out);
+}
+
+.section-heading__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+}
+
+.section-heading__title {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+  font-weight: 700;
+  font-optical-sizing: auto;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--app-text);
+}

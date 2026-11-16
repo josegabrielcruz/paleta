@@ -1,0 +1,28 @@
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-md);
+  color: var(--app-text-2);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background-color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--app-border-hover);
+  color: var(--app-text);
+  background: var(--app-surface-2);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--app-text-2);
+  outline-offset: 2px;
+}

@@ -8,6 +8,9 @@ import type { MultiSeeds } from './hooks/useMultiPalette'
 import { FadeInSection } from './components/FadeInSection'
 import { StickyControls } from './components/StickyControls'
 import { SectionNav } from './components/SectionNav'
+import { PaletteHeader } from './components/PaletteHeader'
+import { SectionHeading } from './components/SectionHeading'
+import { useTheme } from './hooks/useTheme'
 import { BrandInput } from './components/BrandInput'
 import SeedRow from './components/SeedRow'
 import SimulationBar from './components/SimulationBar'
@@ -87,15 +90,16 @@ export default function App() {
     })
   }, [])
 
+  const { theme, toggle: toggleTheme } = useTheme()
   const multiPalette = useMultiPalette(seeds)
   const { lightScale, darkScale } = multiPalette.primary
   const activeFilter   = simulation !== 'none' ? `url(#${filterId(simulation)})` : undefined
   const prefersReduced = useReducedMotion()
 
   const mountItem = (delay: number) => ({
-    initial:    { opacity: 0, y: prefersReduced ? 0 : -10 },
+    initial:    { opacity: 0, y: prefersReduced ? 0 : 24 },
     animate:    { opacity: 1, y: 0 },
-    transition: { duration: prefersReduced ? 0 : 0.4, delay: prefersReduced ? 0 : delay, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] },
+    transition: { duration: prefersReduced ? 0 : 0.6, delay: prefersReduced ? 0 : delay, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] },
   })
 
   return (
@@ -116,52 +120,79 @@ export default function App() {
       </svg>
 
       {/* Fixed overlays — outside max-width container */}
+      <PaletteHeader theme={theme} onToggleTheme={toggleTheme} />
       <StickyControls seeds={seeds} visible={stickyVisible} onShuffle={handleShuffle} />
       <SectionNav visible={stickyVisible} />
 
       <main className="paleta-app">
-        <motion.h1 className="paleta-wordmark" {...mountItem(0)}>paleta</motion.h1>
 
         {/* ref'd section so we know when it leaves the viewport */}
         <div ref={controlsRef} id="section-controls">
-          <motion.div {...mountItem(0)}>
-            <BrandInput onApply={setSeeds} />
-          </motion.div>
-          <motion.div {...mountItem(0.08)}>
-            <SeedRow
-              primarySeed={seeds.primary}
-              secondarySeed={seeds.secondary}
-              neutralSeed={seeds.neutral}
-              onPrimaryChange={hex   => setSeeds(s => ({ ...s, primary: hex }))}
-              onSecondaryChange={hex => setSeeds(s => ({ ...s, secondary: hex }))}
-              onNeutralChange={hex   => setSeeds(s => ({ ...s, neutral: hex }))}
-            />
-          </motion.div>
-          <motion.div {...mountItem(0.14)}>
-            <DiscoveryBar onApplyPreset={setSeeds} onShuffle={handleShuffle} />
-          </motion.div>
-          <motion.div {...mountItem(0.19)}>
-            <SimulationBar active={simulation} onChange={setSimulation} />
-          </motion.div>
+
+          {/* Hero — editorial tagline + AI input */}
+          <div className="paleta-hero">
+            <div className="paleta-hero__text">
+              <motion.h1 className="paleta-hero__headline" {...mountItem(0)}>
+                Design systems that<br />start with an intention.
+              </motion.h1>
+              <motion.p className="paleta-hero__sub" {...mountItem(0.09)}>
+                Describe your brand in plain language. Paleta generates a complete OKLCH color system — scales, tokens, contrast, and components.
+              </motion.p>
+            </div>
+            <motion.div {...mountItem(0.18)}>
+              <BrandInput onApply={setSeeds} />
+            </motion.div>
+          </div>
+
+          {/* Divider */}
+          <div className="paleta-controls-divider" role="separator">
+            <span>or start with a color</span>
+          </div>
+
+          {/* Manual controls */}
+          <div className="paleta-manual-controls">
+            <motion.div {...mountItem(0.18)}>
+              <SeedRow
+                primarySeed={seeds.primary}
+                secondarySeed={seeds.secondary}
+                neutralSeed={seeds.neutral}
+                onPrimaryChange={hex   => setSeeds(s => ({ ...s, primary: hex }))}
+                onSecondaryChange={hex => setSeeds(s => ({ ...s, secondary: hex }))}
+                onNeutralChange={hex   => setSeeds(s => ({ ...s, neutral: hex }))}
+              />
+            </motion.div>
+            <motion.div {...mountItem(0.22)}>
+              <DiscoveryBar onApplyPreset={setSeeds} onShuffle={handleShuffle} />
+            </motion.div>
+            <motion.div {...mountItem(0.26)}>
+              <SimulationBar active={simulation} onChange={setSimulation} />
+            </motion.div>
+          </div>
+
         </div>
 
         {/* Everything below this div is affected by the active CVD filter */}
         <div style={{ filter: activeFilter }}>
           <div className="paleta-sections">
             <div id="section-scales">
+              <SectionHeading number="01" title="Color Scales" />
               <FadeInSection><MultiScaleDisplay multiPalette={multiPalette} /></FadeInSection>
               <FadeInSection><DarkLightPair lightScale={lightScale} darkScale={darkScale} /></FadeInSection>
             </div>
             <div id="section-tokens">
+              <SectionHeading number="02" title="Semantic Tokens" />
               <FadeInSection><SemanticTokenGrid lightScale={lightScale} darkScale={darkScale} /></FadeInSection>
             </div>
             <div id="section-contrast">
+              <SectionHeading number="03" title="Contrast Matrix" />
               <FadeInSection><ContrastMatrix lightScale={lightScale} darkScale={darkScale} /></FadeInSection>
             </div>
             <div id="section-preview">
+              <SectionHeading number="04" title="Component Preview" />
               <FadeInSection><ComponentPreview lightScale={lightScale} darkScale={darkScale} multiPalette={multiPalette} /></FadeInSection>
             </div>
             <div id="section-export">
+              <SectionHeading number="05" title="Export" />
               <FadeInSection><ExportPanel lightScale={lightScale} darkScale={darkScale} multiPalette={multiPalette} /></FadeInSection>
             </div>
           </div>

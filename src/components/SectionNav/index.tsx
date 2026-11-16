@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from 'framer-motion'
 import { useActiveSection } from '../../hooks/useActiveSection'
 import './SectionNav.css'
 
@@ -15,6 +16,7 @@ interface SectionNavProps {
 
 export function SectionNav({ visible }: SectionNavProps) {
   const activeId = useActiveSection(SECTION_NAV_ITEMS.map(s => s.id))
+  const prefersReduced = useReducedMotion()
 
   if (!visible) return null
 
@@ -24,18 +26,38 @@ export function SectionNav({ visible }: SectionNavProps) {
 
   return (
     <nav className="section-nav" aria-label="Jump to section">
-      {SECTION_NAV_ITEMS.map(s => (
-        <button
-          key={s.id}
-          className={`section-nav__item${activeId === s.id ? ' section-nav__item--active' : ''}`}
-          onClick={() => scrollTo(s.id)}
-          aria-label={`Jump to ${s.label}`}
-          title={s.label}
-        >
-          <span className="section-nav__dot" aria-hidden="true" />
-          <span className="section-nav__label">{s.label}</span>
-        </button>
-      ))}
+      <div className="section-nav__track">
+        {/* Vertical line connecting dot centers */}
+        <div className="section-nav__line" aria-hidden="true" />
+
+        {SECTION_NAV_ITEMS.map(s => (
+          <button
+            key={s.id}
+            className={`section-nav__item${activeId === s.id ? ' section-nav__item--active' : ''}`}
+            onClick={() => scrollTo(s.id)}
+            aria-label={`Jump to ${s.label}`}
+            title={s.label}
+          >
+            {/* Ring indicator travels between slots via layoutId spring */}
+            <div className="section-nav__dot-slot">
+              {activeId === s.id && (
+                <motion.span
+                  layoutId="nav-ring"
+                  className="section-nav__ring"
+                  aria-hidden="true"
+                  transition={
+                    prefersReduced
+                      ? { duration: 0 }
+                      : { type: 'spring', stiffness: 420, damping: 32 }
+                  }
+                />
+              )}
+              <span className="section-nav__dot" aria-hidden="true" />
+            </div>
+            <span className="section-nav__label">{s.label}</span>
+          </button>
+        ))}
+      </div>
     </nav>
   )
 }

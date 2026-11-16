@@ -48,7 +48,7 @@
 .cm-toggle__btn {
   padding: 3px 10px;
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: lowercase;
@@ -78,7 +78,7 @@
 .cm-filter__btn {
   padding: 4px 12px;
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   border-radius: var(--radius-sm);
   border: 1px solid var(--app-border);
@@ -98,6 +98,11 @@
 .cm-filter__btn--active.cm-filter__btn--AA     { background: rgba(59 130 246 / 0.18); color: #93c5fd; border-color: rgba(59 130 246 / 0.4); }
 .cm-filter__btn--active.cm-filter__btn--AAA    { background: rgba(34 197 94 / 0.18); color: #86efac; border-color: rgba(34 197 94 / 0.4); }
 .cm-filter__btn--active.cm-filter__btn--fail   { background: rgba(239 68 68 / 0.15); color: #fca5a5; border-color: rgba(239 68 68 / 0.3); }
+
+/* Light theme: use darker semantic colors for accessible contrast */
+[data-theme='light'] .cm-filter__btn--active.cm-filter__btn--AA   { color: #2563eb; background: rgba(59 130 246 / 0.1);  border-color: rgba(59 130 246 / 0.3); }
+[data-theme='light'] .cm-filter__btn--active.cm-filter__btn--AAA  { color: #16a34a; background: rgba(34 197 94 / 0.1);  border-color: rgba(34 197 94 / 0.25); }
+[data-theme='light'] .cm-filter__btn--active.cm-filter__btn--fail { color: #dc2626; background: rgba(239 68 68 / 0.08); border-color: rgba(239 68 68 / 0.2);  }
 
 /* ── Grid scroll wrapper ─────────────────────────────────────────────────── */
 .cm-scroll-wrapper {
@@ -135,7 +140,7 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-mono);
-  font-size: 8px;
+  font-size: 10px;
   color: var(--app-text-3);
 }
 
@@ -183,8 +188,8 @@
 .cm-cell--aaa     { background: rgba(34 197 94 / 0.75); }
 .cm-cell--aa      { background: rgba(59 130 246 / 0.75); }
 .cm-cell--aalarge { background: rgba(245 158 11 / 0.70); }
-.cm-cell--fail    { background: rgba(255 255 255 / 0.04); }
-.cm-cell--same    { background: rgba(255 255 255 / 0.02); cursor: not-allowed; }
+.cm-cell--fail    { background: var(--app-surface); }
+.cm-cell--same    { background: var(--app-surface); cursor: not-allowed; }
 .cm-cell--dim     { opacity: 0.07; }
 
 /* Ratio text — appears on hover */
@@ -192,7 +197,7 @@
   font-family: var(--font-mono);
   font-size: 7px;
   font-weight: 600;
-  color: rgba(255 255 255 / 0.95);
+  color: var(--app-text);
   opacity: 0;
   transition: opacity 0.1s ease;
   pointer-events: none;
@@ -201,7 +206,7 @@
 }
 
 .cm-cell--fail .cm-cell__ratio {
-  color: rgba(255 255 255 / 0.4);
+  color: var(--app-text-3);
 }
 
 .cm-cell:not(.cm-cell--same):hover .cm-cell__ratio {
@@ -230,7 +235,7 @@
 
 .cm-legend__label {
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--app-text-3);
 }
 

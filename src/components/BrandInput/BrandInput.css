@@ -22,7 +22,7 @@
 }
 
 .brand-input__form--active {
-  border-color: rgba(255 255 255 / 0.14);
+  border-color: var(--app-border-hover);
 }
 
 .brand-input__textarea {
@@ -32,9 +32,9 @@
   outline: none;
   color: var(--app-text);
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 0.9375rem;
   line-height: 1.6;
-  padding: 14px 16px 10px;
+  padding: var(--space-4) var(--space-6) var(--space-3);
   resize: none;
   caret-color: var(--app-text);
 }
@@ -58,43 +58,40 @@
 
 .brand-input__hint {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--app-text-3);
   flex: 1;
 }
 
-/* ── Generate button ──────────────────────────────────────────────────────── */
 .brand-input__generate {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 6px 14px;
-  min-width: 108px;
-  height: 32px;
-  background: var(--app-surface-2);
-  border: 1px solid var(--app-border);
+  padding: 6px 18px;
+  min-width: 116px;
+  height: 34px;
+  background: var(--app-text);
+  border: 1px solid transparent;
   border-radius: var(--radius-md);
-  color: var(--app-text);
+  color: var(--app-bg);
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: var(--text-mono);
   font-weight: 600;
+  letter-spacing: 0.03em;
   cursor: pointer;
   transition:
     background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease,
     opacity 0.15s ease;
   flex-shrink: 0;
 }
 
 .brand-input__generate:hover:not(:disabled) {
-  background: rgba(255 255 255 / 0.08);
-  border-color: var(--app-border-hover);
+  opacity: 0.88;
 }
 
 .brand-input__generate:disabled {
-  opacity: 0.4;
+  opacity: 0.3;
   cursor: not-allowed;
 }
 

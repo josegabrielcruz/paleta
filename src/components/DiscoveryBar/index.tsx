@@ -1,6 +1,9 @@
 import { useState, useCallback } from 'react'
 import { PRESETS, type Preset } from '../../lib/presets'
 import type { MultiSeeds } from '../../hooks/useMultiPalette'
+import ShareIcon from '@iconify-react/bxs/share'
+import CheckmarkFillIcon from '@iconify-react/eva/checkmark-fill'
+import Random1diceIcon from '@iconify-react/fad/random-1dice';
 import './DiscoveryBar.css'
 
 interface DiscoveryBarProps {
@@ -55,7 +58,7 @@ export default function DiscoveryBar({ onApplyPreset, onShuffle }: DiscoveryBarP
           title="Random palette"
           aria-label="Shuffle to a random palette"
         >
-          ↺ Shuffle
+          <Random1diceIcon height="2.5em" /> Shuffle
         </button>
         <button
           className="disc-bar__btn disc-bar__btn--share"
@@ -63,7 +66,7 @@ export default function DiscoveryBar({ onApplyPreset, onShuffle }: DiscoveryBarP
           aria-live="polite"
           aria-label="Copy share link"
         >
-          {copied ? '✓ Copied!' : '⤤ Share'}
+          {copied ? <><CheckmarkFillIcon height="16" />&nbsp;Copied</> : <><ShareIcon height="16" />&nbsp;Share</>}
         </button>
       </div>
 
