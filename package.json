@@ -15,6 +15,7 @@
     "@iconify-react/coolicons": "gitlab:iconify-icons/react#coolicons",
     "@iconify-react/eva": "gitlab:iconify-icons/react#eva",
     "@iconify-react/fad": "gitlab:iconify-icons/react#fad",
+    "@vercel/og": "^1.0.3",
     "ai": "^7.0.171",
     "culori": "^4.0.2",
     "framer-motion": "^14.12.0",
