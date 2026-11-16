@@ -1,6 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import html2canvas from 'html2canvas'
 import { useAISuggest } from '../../hooks/useAISuggest'
+import { PaletteCard } from '../PaletteCard'
 import type { MultiSeeds } from '../../hooks/useMultiPalette'
 import FlameFillRoundIcon from '@iconify-react/coolicons/flame-fill-round';
 import './BrandInput.css'
@@ -22,7 +24,10 @@ export function BrandInput({ onApply }: BrandInputProps) {
   const [description, setDescription] = useState('')
   const [placeholderIdx, setPlaceholderIdx] = useState(0)
   const [isFocused, setIsFocused] = useState(false)
+  const [showCard, setShowCard] = useState(false)
+  const [capturing, setCapturing] = useState(false)
   const lastDescriptionRef = useRef('')
+  const cardRef = useRef<HTMLDivElement>(null)
 
   const {
     status,
@@ -61,6 +66,21 @@ export function BrandInput({ onApply }: BrandInputProps) {
   const handleRegenerate = useCallback(() => {
     generate(lastDescriptionRef.current)
   }, [generate])
+
+  const handleDownloadCard = useCallback(async () => {
+    if (!cardRef.current) return
+    setCapturing(true)
+    try {
+      const canvas = await html2canvas(cardRef.current, { scale: 2, useCORS: true, backgroundColor: null })
+      const url = canvas.toDataURL('image/png')
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'paleta-card.png'
+      a.click()
+    } finally {
+      setCapturing(false)
+    }
+  }, [])
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
@@ -175,17 +195,61 @@ export function BrandInput({ onApply }: BrandInputProps) {
               ))}
             </div>
 
-            {/* Apply / Regenerate */}
+            {/* Apply / Share card / Regenerate */}
             {status === 'done' && (
               <div className="brand-input__result-actions">
                 <button className="brand-input__apply" onClick={handleApply}>
                   Apply these colors
+                </button>
+                <button className="brand-input__share-card" onClick={() => setShowCard(true)}>
+                  Share card
                 </button>
                 <button className="brand-input__regen" onClick={handleRegenerate}>
                   Regenerate
                 </button>
               </div>
             )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Palette card modal ── */}
+      <AnimatePresence>
+        {showCard && suggestion && (
+          <motion.div
+            className="bi-card-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setShowCard(false)}
+          >
+            <motion.div
+              className="bi-card-modal"
+              initial={{ opacity: 0, y: 24, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 24, scale: 0.97 }}
+              transition={{ duration: 0.25, ease: EASE_OUT_EXPO }}
+              onClick={e => e.stopPropagation()}
+            >
+              <PaletteCard
+                ref={cardRef}
+                description={lastDescriptionRef.current}
+                suggestion={suggestion}
+              />
+              <div className="bi-card-modal__actions">
+                <button
+                  className="bi-card-modal__download"
+                  onClick={handleDownloadCard}
+                  disabled={capturing}
+                >
+                  {capturing ? 'Saving…' : 'Save as image'}
+                </button>
+                <button className="bi-card-modal__close" onClick={() => setShowCard(false)}>
+                  Close
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

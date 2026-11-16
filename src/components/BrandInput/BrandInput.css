@@ -296,6 +296,92 @@
   color: var(--app-text);
 }
 
+.brand-input__share-card {
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-md);
+  color: var(--app-text-2);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.brand-input__share-card:hover {
+  border-color: var(--app-border-hover);
+  color: var(--app-text);
+}
+
+/* ── Palette card overlay ─────────────────────────────────────────────────── */
+.bi-card-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: rgba(0 0 0 / 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.bi-card-modal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 640px;
+}
+
+.bi-card-modal__actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.bi-card-modal__download {
+  flex: 1;
+  padding: 10px 20px;
+  background: #ededed;
+  border: none;
+  border-radius: var(--radius-md);
+  color: #111111;
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.bi-card-modal__download:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.bi-card-modal__download:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.bi-card-modal__close {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid rgba(255 255 255 / 0.14);
+  border-radius: var(--radius-md);
+  color: rgba(255 255 255 / 0.5);
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.bi-card-modal__close:hover {
+  border-color: rgba(255 255 255 / 0.25);
+  color: rgba(255 255 255 / 0.8);
+}
+
 /* ── Reduced motion ───────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .brand-input__spinner          { animation: none; border-color: rgba(255 255 255 / 0.4); }
