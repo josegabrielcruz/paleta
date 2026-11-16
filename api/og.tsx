@@ -1,6 +1,6 @@
 import { ImageResponse } from '@vercel/og'
 
-export const config = { runtime: 'edge' }
+// Node.js serverless runtime (default) — @vercel/og v1.x is incompatible with Edge outside Next.js
 
 const SEEDS = [
   { label: 'Primary',   key: 'p', fallback: '2563eb' },
