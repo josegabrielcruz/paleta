@@ -1,8 +1,9 @@
 .disc-bar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   flex-wrap: wrap;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -21,13 +22,14 @@
   display: flex;
   gap: 5px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .disc-bar__preset {
   display: flex;
   gap: 4px;
   align-items: center;
-  padding: 5px 6px;
+  padding: 14px 8px;
   background: var(--app-surface);
   border: 1px solid var(--app-border);
   border-radius: var(--radius-sm);

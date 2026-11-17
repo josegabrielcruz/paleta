@@ -85,7 +85,7 @@ export default function PaletteScale({ scale }: PaletteScaleProps) {
             ref={el => { swatchRefs.current[index] = el }}
             role="listitem"
             className="palette-scale__swatch"
-            style={{ backgroundColor: stop.hex }}
+            style={{ backgroundColor: stop.outOfGamut ? stop.cssOklch : stop.hex }}
             onClick={() => handleSwatchClick(stop.step, stop.hex)}
             onKeyDown={e => handleKeyDown(e, index)}
             data-copied={copiedStep === stop.step ? 'true' : undefined}
@@ -98,8 +98,9 @@ export default function PaletteScale({ scale }: PaletteScaleProps) {
               <span className="palette-scale__contrast">
                 W {contrastBadges[stop.step].w} · B {contrastBadges[stop.step].b}
               </span>
-            </div>
-            <div className="palette-scale__copied" aria-hidden="true">
+            </div>            {stop.outOfGamut && (
+              <span className="palette-scale__p3-dot" aria-hidden="true" title="Exceeds sRGB gamut — P3 expanded" />
+            )}            <div className="palette-scale__copied" aria-hidden="true">
               copied
             </div>
           </button>

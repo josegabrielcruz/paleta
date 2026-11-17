@@ -12,10 +12,10 @@ export interface UseMultiPaletteResult {
   neutral: UsePaletteResult
 }
 
-export function useMultiPalette({ primary, secondary, neutral }: MultiSeeds): UseMultiPaletteResult {
+export function useMultiPalette({ primary, secondary, neutral }: MultiSeeds, p3Mode = false): UseMultiPaletteResult {
   return {
-    primary:   usePalette(primary,   'primary'),
-    secondary: usePalette(secondary, 'secondary'),
-    neutral:   usePalette(neutral,   'neutral'),
+    primary:   usePalette(primary,   'primary',   p3Mode),
+    secondary: usePalette(secondary, 'secondary', p3Mode),
+    neutral:   usePalette(neutral,   'neutral',   p3Mode),
   }
 }

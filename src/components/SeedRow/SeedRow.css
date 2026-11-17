@@ -5,7 +5,7 @@
   gap: 24px;
   width: 100%;
 }
-@media (max-width: 700px) {
+@media (max-width: 960px) {
   .seed-row { grid-template-columns: 1fr; gap: 16px; }
 }
 /* ── Column ──────────────────────────────────────────────────────────────── */
@@ -13,6 +13,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  align-items: center;
 }
 
 .seed-row__label {

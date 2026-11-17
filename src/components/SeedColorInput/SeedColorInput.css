@@ -1,7 +1,16 @@
 .seed-input {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 10px;
+}
+
+@media (max-width: 1000px) {
+  .seed-input {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }
 
 /* ── Color picker swatch ── */

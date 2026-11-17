@@ -36,7 +36,7 @@ function toCssOklch(l: number, c: number, h: number): string {
  * The L-curve is designed for dark surfaces — backgrounds cluster at low L,
  * text and interactive elements at high L. Peak chroma sits at step 700.
  */
-export function generateDarkScale(seedHex: string, name = 'primary'): TokenScale {
+export function generateDarkScale(seedHex: string, name = 'primary', p3Mode = false): TokenScale {
   const parsed = parse(seedHex)
   if (!parsed) throw new Error(`generateDarkScale: invalid color "${seedHex}"`)
 
@@ -57,15 +57,20 @@ export function generateDarkScale(seedHex: string, name = 'primary'): TokenScale
     const raw: Oklch = { mode: 'oklch', l, c: targetC, h: seedH }
     const clamped = clampChroma(raw, 'oklch')
 
-    const cl = clamped.l ?? l
-    const cc = clamped.c ?? targetC
+    const cl_c = clamped.l ?? l
+    const cc_c = clamped.c ?? targetC
+
+    const cl = p3Mode ? l : cl_c
+    const cc = p3Mode ? targetC : cc_c
     const ch = clamped.h ?? seedH
+    const outOfGamut = p3Mode && cc_c < targetC - 0.001
 
     return {
       step,
       hex: formatHex(clamped) ?? '#000000',
       oklch: { l: cl, c: cc, h: ch },
       cssOklch: toCssOklch(cl, cc, ch),
+      outOfGamut,
     }
   })
 

@@ -28,6 +28,33 @@ export function toCssVarsMulti(scales: TokenScale[]): string {
   return `:root {\n${lines.join('\n')}\n}`
 }
 
+// P3 format: sRGB hex fallback + @supports block with unclamped oklch values
+export function toCssVarsP3(scale: TokenScale): string {
+  const hex = scale.stops.map(
+    (s: ColorStop) => `${indent(2)}${cssVarName(scale.name, s.step)}: ${s.hex};`,
+  )
+  const oklch = scale.stops.map(
+    (s: ColorStop) => `${indent(4)}${cssVarName(scale.name, s.step)}: ${s.cssOklch};`,
+  )
+  return (
+    `:root {\n${hex.join('\n')}\n}\n\n` +
+    `@supports (color: oklch(0 0 0)) {\n  :root {\n${oklch.join('\n')}\n  }\n}`
+  )
+}
+
+export function toCssVarsMultiP3(scales: TokenScale[]): string {
+  const hex = scales.flatMap(scale =>
+    scale.stops.map((s: ColorStop) => `${indent(2)}${cssVarName(scale.name, s.step)}: ${s.hex};`),
+  )
+  const oklch = scales.flatMap(scale =>
+    scale.stops.map((s: ColorStop) => `${indent(4)}${cssVarName(scale.name, s.step)}: ${s.cssOklch};`),
+  )
+  return (
+    `:root {\n${hex.join('\n')}\n}\n\n` +
+    `@supports (color: oklch(0 0 0)) {\n  :root {\n${oklch.join('\n')}\n  }\n}`
+  )
+}
+
 // ─── Tailwind v3 (extend.colors) ─────────────────────────────────────────────
 
 /**
@@ -123,7 +150,7 @@ export function toStyleDictionaryMulti(scales: TokenScale[]): string {
 
 // ─── Dispatch ─────────────────────────────────────────────────────────────────
 
-export type ExportFormatId = 'css' | 'tailwind' | 'tailwind-v4' | 'figma' | 'style-dictionary'
+export type ExportFormatId = 'css' | 'css-p3' | 'tailwind' | 'tailwind-v4' | 'figma' | 'style-dictionary'
 
 export interface ExportFormatMeta {
   id: ExportFormatId
@@ -142,6 +169,14 @@ export const EXPORT_FORMATS: ExportFormatMeta[] = [
     mimeType: 'text/css',
     generate: toCssVars,
     generateMulti: toCssVarsMulti,
+  },
+  {
+    id: 'css-p3',
+    label: 'CSS P3 + sRGB',
+    fileExt: 'css',
+    mimeType: 'text/css',
+    generate: toCssVarsP3,
+    generateMulti: toCssVarsMultiP3,
   },
   {
     id: 'tailwind',

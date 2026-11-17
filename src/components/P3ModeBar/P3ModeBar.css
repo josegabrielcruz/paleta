@@ -1,0 +1,52 @@
+.p3-bar {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.p3-bar__label {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+  flex-shrink: 0;
+}
+
+.p3-bar__btn {
+  padding: 4px 12px;
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--app-border);
+  background: transparent;
+  color: var(--app-text-3);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.p3-bar__btn:hover {
+  border-color: var(--app-border-hover);
+  color: var(--app-text-2);
+}
+
+/* P3-active button: a distinctive purple-ish accent to signal expanded gamut */
+.p3-bar__btn--active {
+  background: rgba(168 85 247 / 0.15);
+  color: var(--app-text);
+  border-color: rgba(168 85 247 / 0.4);
+}
+
+.p3-bar__hint {
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  color: var(--app-text-3);
+  font-style: italic;
+  margin-left: 8px;
+}

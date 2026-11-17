@@ -13,7 +13,7 @@
   grid-template-columns: 220px 1fr 1fr;
   padding: 1px 16px;
 }
-@media (max-width: 700px) {
+@media (max-width: 960px) {
   .stg-header { display: none; }
   .stg-row    { grid-template-columns: 1fr; }
   .stg-col-token { padding-bottom: 4px; }

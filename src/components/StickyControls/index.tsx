@@ -1,8 +1,5 @@
-import { useState, useCallback } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { MultiSeeds } from '../../hooks/useMultiPalette'
-import ShareIcon from '@iconify-react/bxs/share'
-import CheckmarkFillIcon from '@iconify-react/eva/checkmark-fill'
 import Random1diceIcon from '@iconify-react/fad/random-1dice';
 import './StickyControls.css'
 
@@ -15,14 +12,6 @@ interface StickyControlsProps {
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
 export function StickyControls({ seeds, visible, onShuffle }: StickyControlsProps) {
-  const [copied, setCopied] = useState(false)
-
-  const handleShare = useCallback(async () => {
-    try { await navigator.clipboard.writeText(window.location.href) }
-    catch { /* silent fallback */ }
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1500)
-  }, [])
 
   const scrollToControls = () => {
     document.getElementById('section-controls')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -66,9 +55,9 @@ export function StickyControls({ seeds, visible, onShuffle }: StickyControlsProp
             <button className="sticky-ctrl__btn" onClick={onShuffle} title="Random palette" aria-label="Shuffle palette">
               <Random1diceIcon height="1.5em" />
             </button>
-            <button className="sticky-ctrl__btn" onClick={handleShare} aria-live="polite" aria-label="Copy share link">
+            {/* <button className="sticky-ctrl__btn" onClick={handleShare} aria-live="polite" aria-label="Copy share link">
               {copied ? <CheckmarkFillIcon height="1em" /> : <ShareIcon height="1em" /> }
-            </button>
+            </button> */}
           </div>
         </motion.div>
       )}

@@ -12,9 +12,10 @@ export type ScaleStep = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
 
 export interface ColorStop {
   step: ScaleStep
-  hex: string       // '#2563eb'
+  hex: string       // '#2563eb' — always sRGB-clamped, used as fallback
   oklch: OklchValues
   cssOklch: string  // 'oklch(55.5% 0.2210 264.1)'
+  outOfGamut?: boolean  // true when P3 mode is on and this stop exceeds sRGB
 }
 
 export interface TokenScale {

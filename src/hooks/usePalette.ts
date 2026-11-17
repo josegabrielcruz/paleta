@@ -17,7 +17,7 @@ export interface UsePaletteResult {
  * Core hook — generates both light and dark scales from a single hex seed.
  * Invalid seeds fall back to the default blue without throwing.
  */
-export function usePalette(seedHex: string, name = 'primary'): UsePaletteResult {
+export function usePalette(seedHex: string, name = 'primary', p3Mode = false): UsePaletteResult {
   // Color picker fires ~60 events/sec while dragging — debounce the expensive computation
   const [settled, setSettled] = useState(seedHex)
   useEffect(() => {
@@ -28,18 +28,18 @@ export function usePalette(seedHex: string, name = 'primary'): UsePaletteResult 
   const { lightScale, darkScale, isValid } = useMemo(() => {
     try {
       return {
-        lightScale: generateScale(settled, name),
-        darkScale:  generateDarkScale(settled, name),
+        lightScale: generateScale(settled, name, p3Mode),
+        darkScale:  generateDarkScale(settled, name, p3Mode),
         isValid: true,
       }
     } catch {
       return {
-        lightScale: generateScale(FALLBACK_SEED, name),
-        darkScale:  generateDarkScale(FALLBACK_SEED, name),
+        lightScale: generateScale(FALLBACK_SEED, name, p3Mode),
+        darkScale:  generateDarkScale(FALLBACK_SEED, name, p3Mode),
         isValid: false,
       }
     }
-  }, [settled, name])
+  }, [settled, name, p3Mode])
 
   const contrastMatrix = useMemo(
     () => buildContrastMatrix(lightScale.stops),

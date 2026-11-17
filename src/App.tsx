@@ -14,6 +14,7 @@ import { useTheme } from './hooks/useTheme'
 import { BrandInput } from './components/BrandInput'
 import SeedRow from './components/SeedRow'
 import SimulationBar from './components/SimulationBar'
+import { P3ModeBar } from './components/P3ModeBar'
 import DiscoveryBar from './components/DiscoveryBar'
 import MultiScaleDisplay from './components/MultiScaleDisplay'
 import DarkLightPair from './components/DarkLightPair'
@@ -64,6 +65,7 @@ export default function App() {
   const initial = parseUrlState()
   const [seeds, setSeeds]           = useState<MultiSeeds>(initial?.seeds ?? defaultSeeds())
   const [simulation, setSimulation] = useState<SimulationType>(initial?.simulation ?? 'none')
+  const [p3Mode, setP3Mode]         = useState(false)
   const [stickyVisible, setStickyVisible] = useState(false)
   const controlsRef = useRef<HTMLDivElement>(null)
 
@@ -92,7 +94,7 @@ export default function App() {
   }, [])
 
   const { theme, toggle: toggleTheme } = useTheme()
-  const multiPalette = useMultiPalette(seeds)
+  const multiPalette = useMultiPalette(seeds, p3Mode)
   const { lightScale, darkScale } = multiPalette.primary
   const activeFilter   = simulation !== 'none' ? `url(#${filterId(simulation)})` : undefined
   const prefersReduced = useReducedMotion()
@@ -167,6 +169,9 @@ export default function App() {
             </motion.div>
             <motion.div {...mountItem(0.26)}>
               <SimulationBar active={simulation} onChange={setSimulation} />
+            </motion.div>
+            <motion.div {...mountItem(0.30)}>
+              <P3ModeBar active={p3Mode} onChange={setP3Mode} />
             </motion.div>
           </div>
 

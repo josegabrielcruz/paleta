@@ -9,7 +9,7 @@ interface SimulationBarProps {
 export default function SimulationBar({ active, onChange }: SimulationBarProps) {
   return (
     <div className="sim-bar" role="group" aria-label="Color vision simulation">
-      <span className="sim-bar__eyebrow">Simulate</span>
+      <span className="sim-bar__eyebrow">Simulate Color Vision Deficiencies</span>
       <div className="sim-bar__buttons">
         {SIMULATIONS.map(s => (
           <button

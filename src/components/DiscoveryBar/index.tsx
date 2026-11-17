@@ -1,8 +1,5 @@
-import { useState, useCallback } from 'react'
 import { PRESETS, type Preset } from '../../lib/presets'
 import type { MultiSeeds } from '../../hooks/useMultiPalette'
-import ShareIcon from '@iconify-react/bxs/share'
-import CheckmarkFillIcon from '@iconify-react/eva/checkmark-fill'
 import Random1diceIcon from '@iconify-react/fad/random-1dice';
 import './DiscoveryBar.css'
 
@@ -12,27 +9,12 @@ interface DiscoveryBarProps {
 }
 
 export default function DiscoveryBar({ onApplyPreset, onShuffle }: DiscoveryBarProps) {
-  const [copied, setCopied] = useState(false)
-
-  const handleShare = useCallback(async () => {
-    try { await navigator.clipboard.writeText(window.location.href) }
-    catch {
-      const el = document.createElement('input')
-      el.value = window.location.href
-      document.body.appendChild(el)
-      el.select()
-      document.execCommand('copy')
-      document.body.removeChild(el)
-    }
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1800)
-  }, [])
 
   return (
     <div className="disc-bar" aria-label="Palette discovery">
 
       {/* ── Preset swatches ── */}
-      <span className="disc-bar__label">Presets</span>
+      <p className="disc-bar__label">Presets</p>
       <div className="disc-bar__presets" role="list">
         {PRESETS.map((p: Preset) => (
           <button
@@ -48,10 +30,18 @@ export default function DiscoveryBar({ onApplyPreset, onShuffle }: DiscoveryBarP
             <span className="disc-bar__dot" style={{ backgroundColor: p.neutral }}   aria-hidden="true" />
           </button>
         ))}
+        <button
+          className="disc-bar__btn"
+          onClick={onShuffle}
+          title="Random palette"
+          aria-label="Shuffle to a random palette"
+        >
+          <Random1diceIcon height="2.5em" /> Shuffle
+        </button>
       </div>
 
       {/* ── Actions ── */}
-      <div className="disc-bar__actions">
+      {/* <div className="disc-bar__actions">
         <button
           className="disc-bar__btn"
           onClick={onShuffle}
@@ -68,7 +58,7 @@ export default function DiscoveryBar({ onApplyPreset, onShuffle }: DiscoveryBarP
         >
           {copied ? <><CheckmarkFillIcon height="16" />&nbsp;Copied</> : <><ShareIcon height="16" />&nbsp;Share</>}
         </button>
-      </div>
+      </div> */}
 
     </div>
   )

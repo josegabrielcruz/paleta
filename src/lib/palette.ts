@@ -37,7 +37,7 @@ function toCssOklch(l: number, c: number, h: number): string {
  * varies per the SCALE definition; chroma scales proportionally and is
  * clamped to the sRGB gamut at each stop.
  */
-export function generateScale(seedHex: string, name = 'primary'): TokenScale {
+export function generateScale(seedHex: string, name = 'primary', p3Mode = false): TokenScale {
   const parsed = parse(seedHex)
   if (!parsed) throw new Error(`generateScale: invalid color "${seedHex}"`)
 
@@ -56,19 +56,25 @@ export function generateScale(seedHex: string, name = 'primary'): TokenScale {
   const stops: ColorStop[] = SCALE.map(({ step, l, cFactor }) => {
     const targetC = Math.max(0, seedC * cFactor)
 
-    // Build OKLCH color and clamp to sRGB gamut
+    // Build OKLCH color and always compute the sRGB-clamped version for hex
     const raw: Oklch = { mode: 'oklch', l, c: targetC, h: seedH }
     const clamped = clampChroma(raw, 'oklch')
 
-    const cl = clamped.l ?? l
-    const cc = clamped.c ?? targetC
+    const cl_c = clamped.l ?? l
+    const cc_c = clamped.c ?? targetC
+
+    // In P3 mode use unclamped OKLCH values; always use clamped hex as sRGB fallback
+    const cl = p3Mode ? l : cl_c
+    const cc = p3Mode ? targetC : cc_c
     const ch = clamped.h ?? seedH
+    const outOfGamut = p3Mode && cc_c < targetC - 0.001
 
     return {
       step,
       hex: formatHex(clamped) ?? '#000000',
       oklch: { l: cl, c: cc, h: ch },
       cssOklch: toCssOklch(cl, cc, ch),
+      outOfGamut,
     }
   })
 
