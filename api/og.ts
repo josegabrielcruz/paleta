@@ -1,15 +1,11 @@
-import fs from 'node:fs'
 import { initWasm, Resvg } from '@resvg/resvg-wasm'
 
 let wasmReady = false
 
 async function ensureWasm(): Promise<void> {
   if (wasmReady) return
-  // Load bundled WASM from node_modules — works in Vercel Node.js runtime
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const wasmPath = require.resolve('@resvg/resvg-wasm/index_bg.wasm')
-  const wasmData = fs.readFileSync(wasmPath)
-  await initWasm(wasmData)
+  // Fetch bundled WASM from npm CDN — works in any runtime, no path resolution
+  await initWasm(fetch('https://unpkg.com/@resvg/resvg-wasm@2.6.2/index_bg.wasm'))
   wasmReady = true
 }
 
