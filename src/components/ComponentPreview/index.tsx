@@ -119,11 +119,11 @@ function Pane({ tokens, paneMode, showLabel }: PaneProps) {
           </div>
           <div className="cp-field">
             <label className="cp-label">Full name</label>
-            <input className="cp-input cp-input--focused" type="text" defaultValue="Jordan Lee" readOnly tabIndex={-1} aria-label="Focused input example" />
+            <input className="cp-input cp-input--focused" type="text" defaultValue="First Last" readOnly tabIndex={-1} aria-label="Focused input example" />
           </div>
           <div className="cp-field">
             <label className="cp-label cp-label--error">Password</label>
-            <input className="cp-input cp-input--error" type="text" defaultValue="hunter2" readOnly tabIndex={-1} aria-invalid="true" aria-label="Error input example" />
+            <input className="cp-input cp-input--error" type="text" defaultValue="password2" readOnly tabIndex={-1} aria-invalid="true" aria-label="Error input example" />
             <span className="cp-error-msg">Must be at least 8 characters.</span>
           </div>
         </div>

@@ -139,7 +139,7 @@ export default function App() {
                 Design systems that<br />start with an intention.
               </motion.h1>
               <motion.p className="paleta-hero__sub" {...mountItem(0.09)}>
-                Describe your brand in plain language. Paleta generates a complete OKLCH color system — scales, tokens, contrast, and components.
+                {`Describe your brand in plain language. Paleta generates a complete OKLCH color system -> scales, tokens, contrast, and components.`}
               </motion.p>
             </div>
             <motion.div {...mountItem(0.18)}>
