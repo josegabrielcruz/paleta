@@ -19,6 +19,7 @@ import MultiScaleDisplay from './components/MultiScaleDisplay'
 import DarkLightPair from './components/DarkLightPair'
 import SemanticTokenGrid from './components/SemanticTokenGrid'
 import ContrastMatrix from './components/ContrastMatrix'
+import { RecommendedPairs } from './components/RecommendedPairs'
 import ComponentPreview from './components/ComponentPreview'
 import ExportPanel from './components/ExportPanel'
 
@@ -185,7 +186,10 @@ export default function App() {
             </div>
             <div id="section-contrast">
               <SectionHeading number="03" title="Contrast Matrix" />
-              <FadeInSection><ContrastMatrix lightScale={lightScale} darkScale={darkScale} /></FadeInSection>
+              <div className="contrast-layout">
+                <FadeInSection><ContrastMatrix lightScale={lightScale} darkScale={darkScale} /></FadeInSection>
+                <FadeInSection><RecommendedPairs lightScale={lightScale} darkScale={darkScale} /></FadeInSection>
+              </div>
             </div>
             <div id="section-preview">
               <SectionHeading number="04" title="Component Preview" />

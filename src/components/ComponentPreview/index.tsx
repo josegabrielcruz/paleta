@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { mapToSemanticTokens, mapToMixedSemanticTokens, type ResolvedToken, type SemanticToken } from '../../lib/tokens'
+import { contrastRatio } from '../../lib/contrast'
 import type { TokenScale } from '../../types'
 import type { UseMultiPaletteResult } from '../../hooks/useMultiPalette'
 import './ComponentPreview.css'
@@ -32,6 +33,19 @@ interface ComponentPreviewProps {
 type PaletteSlot = 'primary' | 'secondary' | 'neutral' | 'system'
 type PreviewMode = 'light' | 'dark' | 'both'
 
+// ─── Contrast badge: corner chip showing ratio + WCAG level ─────────────────
+
+function ContrastBadge({ fg, bg }: { fg: string; bg: string }) {
+  const ratio = contrastRatio(fg, bg)
+  const level = ratio >= 7 ? 'aaa' : ratio >= 4.5 ? 'aa' : ratio >= 3 ? 'aalg' : 'fail'
+  const label = ratio >= 7 ? 'AAA' : ratio >= 4.5 ? 'AA' : ratio >= 3 ? 'AA Lg' : '✗'
+  return (
+    <span className={`cp-cbadge cp-cbadge--${level}`} aria-hidden="true">
+      {ratio.toFixed(1)}:1 {label}
+    </span>
+  )
+}
+
 // ─── Pane content (extracted so it can be rendered once or twice) ─────────────
 
 interface PaneProps {
@@ -41,7 +55,12 @@ interface PaneProps {
 }
 
 function Pane({ tokens, paneMode, showLabel }: PaneProps) {
-  const cssVars = buildCssVars(tokens)
+  const cssVars   = buildCssVars(tokens)
+  const bg        = get(tokens, 'background')
+  const surface   = get(tokens, 'surface')
+  const text      = get(tokens, 'text-primary')
+  const textMuted = get(tokens, 'text-secondary')
+  const brand     = get(tokens, 'primary')
   return (
     <div className={`cp-pane cp-pane--${paneMode}`} style={cssVars as React.CSSProperties}>
       {showLabel && <div className="cp-pane-label">{paneMode}</div>}
@@ -55,6 +74,7 @@ function Pane({ tokens, paneMode, showLabel }: PaneProps) {
           <button className="cp-btn cp-btn--ghost" tabIndex={-1}>Ghost</button>
           <button className="cp-btn cp-btn--filled" disabled tabIndex={-1}>Disabled</button>
         </div>
+        <ContrastBadge fg={bg} bg={brand} />
       </div>
 
       {/* 2 — Badges */}
@@ -85,6 +105,7 @@ function Pane({ tokens, paneMode, showLabel }: PaneProps) {
             <button className="cp-btn cp-btn--ghost cp-btn--sm" tabIndex={-1}>Learn more</button>
           </div>
         </div>
+        <ContrastBadge fg={text} bg={surface} />
       </div>
 
       {/* 4 — Form */}
@@ -106,6 +127,7 @@ function Pane({ tokens, paneMode, showLabel }: PaneProps) {
             <span className="cp-error-msg">Must be at least 8 characters.</span>
           </div>
         </div>
+        <ContrastBadge fg={textMuted} bg={bg} />
       </div>
 
       {/* 5 — Alerts */}

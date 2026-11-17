@@ -1,0 +1,151 @@
+.rp {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+.rp-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rp-header__line {
+  flex: 1;
+  height: 1px;
+  background: var(--app-border);
+}
+
+.rp-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+  flex-shrink: 0;
+}
+
+/* auto-fit so groups stack in a narrow side column without a media query */
+.rp-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-top: 37px;
+}
+
+/* ── Group ────────────────────────────────────────────────────────────────── */
+.rp-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+}
+
+.rp-group__label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--app-text-3);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--app-border);
+}
+
+.rp-group__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Row ──────────────────────────────────────────────────────────────────── */
+.rp-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
+}
+
+.rp-row__swatches {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.rp-row__swatch {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0 0 0 / 0.12);
+  flex-shrink: 0;
+}
+
+/* Foreground swatch overlaps background swatch slightly */
+.rp-row__swatch--fg {
+  margin-left: -6px;
+  box-shadow: 0 0 0 1.5px var(--app-bg), inset 0 0 0 1px rgba(0 0 0 / 0.12);
+}
+
+.rp-row__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+}
+
+.rp-row__use-case {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--app-text);
+}
+
+.rp-row__steps {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--app-text-3);
+}
+
+.rp-row__ratio {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--app-text-2);
+  flex-shrink: 0;
+}
+
+/* ── Level badge ──────────────────────────────────────────────────────────── */
+.rp-row__badge {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.rp-row__badge--aaa {
+  background: rgba(34 197 94 / 0.15);
+  color: #86efac;
+}
+
+.rp-row__badge--aa {
+  background: rgba(59 130 246 / 0.15);
+  color: #93c5fd;
+}
+
+.rp-row__badge--aalarge {
+  background: rgba(245 158 11 / 0.14);
+  color: #fcd34d;
+}
+
+[data-theme='light'] .rp-row__badge--aaa    { color: #16a34a; }
+[data-theme='light'] .rp-row__badge--aa     { color: #2563eb; }
+[data-theme='light'] .rp-row__badge--aalarge { color: #d97706; }
