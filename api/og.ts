@@ -1,26 +1,18 @@
+import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { PNG } from 'pngjs'
 
 const HEX_RE = /^[0-9a-f]{6}$/i
 
-function sanitize(raw: string | null, fallback: string): string {
+function sanitize(raw: string | null | undefined, fallback: string): string {
   const val = (raw ?? '').replace('#', '')
-  return HEX_RE.test(val) ? val : fallback.replace('#', '')
+  return HEX_RE.test(val) ? val : fallback
 }
 
 function hexToRgb(hex: string): [number, number, number] {
-  return [
-    parseInt(hex.slice(0, 2), 16),
-    parseInt(hex.slice(2, 4), 16),
-    parseInt(hex.slice(4, 6), 16),
-  ]
+  return [parseInt(hex.slice(0, 2), 16), parseInt(hex.slice(2, 4), 16), parseInt(hex.slice(4, 6), 16)]
 }
 
-// Fill a rectangular region in the PNG data buffer
-function fillRect(
-  data: Buffer, W: number,
-  x: number, y: number, w: number, h: number,
-  r: number, g: number, b: number,
-): void {
+function fillRect(data: Buffer, W: number, x: number, y: number, w: number, h: number, r: number, g: number, b: number): void {
   for (let py = y; py < y + h; py++) {
     for (let px = x; px < x + w; px++) {
       const i = (W * py + px) << 2
@@ -29,11 +21,10 @@ function fillRect(
   }
 }
 
-export default function handler(req: Request): Response {
-  const { searchParams } = new URL(req.url)
-  const p = sanitize(searchParams.get('p'), '2563eb')
-  const s = sanitize(searchParams.get('s'), '7c3aed')
-  const n = sanitize(searchParams.get('n'), '374151')
+export default function handler(req: VercelRequest, res: VercelResponse): void {
+  const p = sanitize(req.query['p'] as string, '2563eb')
+  const s = sanitize(req.query['s'] as string, '7c3aed')
+  const n = sanitize(req.query['n'] as string, '374151')
 
   const W = 1200
   const H = 630
@@ -46,25 +37,20 @@ export default function handler(req: Request): Response {
 
   const png = new PNG({ width: W, height: H })
 
-  // Dark background — #111111
-  fillRect(png.data as unknown as Buffer, W, 0, 0, W, H, 17, 17, 17)
+  // Dark background
+  fillRect(png.data, W, 0, 0, W, H, 17, 17, 17)
 
-  // Three color strips
+  // Three color strips with simulated rounded corners
   for (const [i, hex] of [p, s, n].entries()) {
     const [r, g, b] = hexToRgb(hex)
     const x = PAD + i * (STRIP_W + GAP)
-    // Rounded corners: draw a slightly inset plain rect (pngjs doesn't support curves,
-    // so this gives clean rectangular swatches with just the outer corners trimmed by padding)
-    fillRect(png.data as unknown as Buffer, W, x + 8, STRIP_Y, STRIP_W - 16, STRIP_H, r, g, b)
-    fillRect(png.data as unknown as Buffer, W, x, STRIP_Y + 8, STRIP_W, STRIP_H - 16, r, g, b)
+    fillRect(png.data, W, x + 8, STRIP_Y, STRIP_W - 16, STRIP_H, r, g, b)
+    fillRect(png.data, W, x, STRIP_Y + 8, STRIP_W, STRIP_H - 16, r, g, b)
   }
 
   const buffer = PNG.sync.write(png)
 
-  return new Response(buffer, {
-    headers: {
-      'Content-Type': 'image/png',
-      'Cache-Control': 'public, s-maxage=86400, max-age=86400',
-    },
-  })
+  res.setHeader('Content-Type', 'image/png')
+  res.setHeader('Cache-Control', 'public, s-maxage=86400, max-age=86400')
+  res.send(buffer)
 }
