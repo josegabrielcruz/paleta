@@ -23,6 +23,7 @@ import ContrastMatrix from './components/ContrastMatrix'
 import { RecommendedPairs } from './components/RecommendedPairs'
 import ComponentPreview from './components/ComponentPreview'
 import ExportPanel from './components/ExportPanel'
+import { Analytics } from '@vercel/analytics/next';
 
 // ─── URL state codec ──────────────────────────────────────────────────────────
 
@@ -207,6 +208,7 @@ export default function App() {
           </div>
         </div>
       </main>
+      <Analytics />
     </>
   )
 }
