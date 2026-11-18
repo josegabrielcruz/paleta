@@ -97,6 +97,10 @@
   opacity: 0.88;
 }
 
+.brand-input__generate:hover:not(:disabled) .brand-input__generate-icon {
+  color: orange;
+}
+
 .brand-input__generate:disabled {
   opacity: 0.3;
   cursor: not-allowed;
@@ -105,6 +109,11 @@
 .brand-input__generate--loading {
   opacity: 1;
   cursor: default;
+}
+
+.brand-input__generate-icon {
+  color: var(--app-bg);
+  transition: color 0.3s ease-in-out;
 }
 
 /* ── Spinner ──────────────────────────────────────────────────────────────── */

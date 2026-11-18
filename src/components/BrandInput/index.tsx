@@ -160,7 +160,7 @@ export function BrandInput({ onApply }: BrandInputProps) {
           >
             {isActive
               ? <span className="brand-input__spinner" aria-hidden="true" />
-              : <>Generate<FlameFillRoundIcon height="18px" /></>}
+              : <>Generate<FlameFillRoundIcon height="18px" className="brand-input__generate-icon" /></>}
           </button>
         </div>
       </div>
