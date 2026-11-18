@@ -16,6 +16,16 @@ const PLACEHOLDER_EXAMPLES = [
   'Luxury e-commerce. Minimal, editorial, high-contrast.',
 ]
 
+// Heuristic: does this look like a question or off-topic request rather than a brand description?
+const QUESTION_RE = /^(what|how|why|when|who|which|is|are|can|could|would|should|does|did|tell me|explain|define|calculate|compute|solve|find|list|give me|show me|write a|create a|generate a|make a|help me|what's|what is|how to|how do)\b/i
+
+function looksOffTopic(text: string): boolean {
+  const t = text.trim()
+  if (QUESTION_RE.test(t)) return true
+  if (t.endsWith('?')) return true
+  return false
+}
+
 interface BrandInputProps {
   onApply: (seeds: MultiSeeds) => void
 }
@@ -135,7 +145,13 @@ export function BrandInput({ onApply }: BrandInputProps) {
           aria-label="Brand or product description"
         />
         <div className="brand-input__form-footer">
-          <span className="brand-input__hint">⌘↵ to generate</span>
+          {looksOffTopic(description) ? (
+            <span className="brand-input__hint brand-input__hint--warn">
+              Describe a brand — e.g. "Minimal fintech app, trustworthy and modern."
+            </span>
+          ) : (
+            <span className="brand-input__hint">⌘↵ to generate</span>
+          )}
           <button
             className={`brand-input__generate${isActive ? ' brand-input__generate--loading' : ''}`}
             onClick={handleGenerate}

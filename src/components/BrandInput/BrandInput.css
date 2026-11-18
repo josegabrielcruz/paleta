@@ -63,6 +63,13 @@
   flex: 1;
 }
 
+.brand-input__hint--warn {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: rgba(245 158 11 / 0.8);
+  font-style: italic;
+}
+
 .brand-input__generate {
   display: inline-flex;
   align-items: center;
