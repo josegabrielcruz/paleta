@@ -23,7 +23,7 @@ import ContrastMatrix from './components/ContrastMatrix'
 import { RecommendedPairs } from './components/RecommendedPairs'
 import ComponentPreview from './components/ComponentPreview'
 import ExportPanel from './components/ExportPanel'
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from '@vercel/analytics/react';
 
 // ─── URL state codec ──────────────────────────────────────────────────────────
 
