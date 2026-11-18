@@ -2,7 +2,10 @@ import { useMemo, useState, useCallback } from 'react'
 import { EXPORT_FORMATS, type ExportFormatId } from '../../lib/export'
 import type { TokenScale } from '../../types'
 import type { UseMultiPaletteResult } from '../../hooks/useMultiPalette'
+import ExportOutlineIcon from '@iconify-react/bitcoin-icons/export-outline';
 import './ExportPanel.css'
+
+const CDN_BASE = 'https://paleta-nine.vercel.app/api/css'
 
 interface ExportPanelProps {
   lightScale: TokenScale
@@ -11,13 +14,27 @@ interface ExportPanelProps {
 }
 
 type ScaleScope = 'light' | 'dark' | 'all'
+type ActiveTab = ExportFormatId | 'cdn'
 
 export default function ExportPanel({ lightScale, darkScale, multiPalette }: ExportPanelProps) {
-  const [formatId, setFormatId] = useState<ExportFormatId>('css')
+  const [formatId, setFormatId] = useState<ActiveTab>('css')
   const [scope, setScope]       = useState<ScaleScope>('light')
   const [copied, setCopied]     = useState(false)
 
-  const activeFmt = EXPORT_FORMATS.find(f => f.id === formatId)!
+  const isCdn = formatId === 'cdn'
+
+  // Build CDN URL from seed hex values in the multi-palette
+  const cdnUrl = useMemo(() => {
+    if (!multiPalette) return CDN_BASE
+    const p = multiPalette.primary.lightScale.seed.replace('#', '')
+    const s = multiPalette.secondary.lightScale.seed.replace('#', '')
+    const n = multiPalette.neutral.lightScale.seed.replace('#', '')
+    return `${CDN_BASE}?p=${p}&s=${s}&n=${n}`
+  }, [multiPalette])
+
+  const cdnSnippet = `<link href="${cdnUrl}" rel="stylesheet">`
+
+  const activeFmt = isCdn ? EXPORT_FORMATS[0] : EXPORT_FORMATS.find(f => f.id === formatId)!
 
   const output = useMemo(() => {
     if (scope === 'all' && multiPalette) {
@@ -36,10 +53,11 @@ export default function ExportPanel({ lightScale, darkScale, multiPalette }: Exp
     : `${scope === 'dark' ? darkScale.name : lightScale.name}-${scope}.${activeFmt.fileExt}`
 
   const handleCopy = useCallback(async () => {
-    try { await navigator.clipboard.writeText(output) }
+    const text = isCdn ? cdnSnippet : output
+    try { await navigator.clipboard.writeText(text) }
     catch {
       const el = document.createElement('textarea')
-      el.value = output
+      el.value = text
       document.body.appendChild(el)
       el.select()
       document.execCommand('copy')
@@ -47,7 +65,7 @@ export default function ExportPanel({ lightScale, darkScale, multiPalette }: Exp
     }
     setCopied(true)
     setTimeout(() => setCopied(false), 1500)
-  }, [output])
+  }, [isCdn, cdnSnippet, output])
 
   const handleDownload = useCallback(() => {
     const blob = new Blob([output], { type: activeFmt.mimeType })
@@ -93,21 +111,49 @@ export default function ExportPanel({ lightScale, darkScale, multiPalette }: Exp
             onClick={() => setFormatId(fmt.id)}
           >{fmt.label}</button>
         ))}
+        <button
+          role="tab"
+          aria-selected={formatId === 'cdn'}
+          className={`ep-fmt-btn ep-fmt-btn--cdn${formatId === 'cdn' ? ' ep-fmt-btn--active' : ''}`}
+          onClick={() => setFormatId('cdn')}
+        >CDN Link &nbsp;<ExportOutlineIcon height="16px" /></button>
       </div>
 
-      <div className="ep-preview-wrap">
-        <pre className="ep-preview" role="tabpanel" aria-label={`${activeFmt.label} output`}>
-          <code>{output}</code>
-        </pre>
-        <div className="ep-actions">
-          <button className="ep-btn ep-btn--copy" onClick={handleCopy} aria-live="polite">
-            {copied ? 'Copied!' : 'Copy'}
-          </button>
-          <button className="ep-btn ep-btn--download" onClick={handleDownload}>
-            Download .{activeFmt.fileExt}
-          </button>
+      {isCdn ? (
+        <div className="ep-cdn">
+          <p className="ep-cdn__desc">
+            Drop this into any HTML page to use your palette as CSS variables.
+          </p>
+          <div className="ep-preview-wrap">
+            <pre className="ep-preview"><code>{cdnSnippet}</code></pre>
+            <div className="ep-actions">
+              <button className="ep-btn ep-btn--copy" onClick={handleCopy} aria-live="polite">
+                {copied ? 'Copied!' : 'Copy'}
+              </button>
+              <a className="ep-btn ep-btn--download" href={cdnUrl} target="_blank" rel="noopener noreferrer">
+                Preview
+              </a>
+            </div>
+          </div>
+          <p className="ep-cdn__vars">
+            Provides <code>--color-primary-*</code>, <code>--color-secondary-*</code>, <code>--color-neutral-*</code> (steps 50–950).
+          </p>
         </div>
-      </div>
+      ) : (
+        <div className="ep-preview-wrap">
+          <pre className="ep-preview" role="tabpanel" aria-label={`${activeFmt.label} output`}>
+            <code>{output}</code>
+          </pre>
+          <div className="ep-actions">
+            <button className="ep-btn ep-btn--copy" onClick={handleCopy} aria-live="polite">
+              {copied ? 'Copied!' : 'Copy'}
+            </button>
+            <button className="ep-btn ep-btn--download" onClick={handleDownload}>
+              Download .{activeFmt.fileExt}
+            </button>
+          </div>
+        </div>
+      )}
 
     </section>
   )

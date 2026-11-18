@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.116",
+    "@iconify-react/bitcoin-icons": "gitlab:iconify-icons/react#bitcoin-icons",
+    "@iconify-react/boxicons": "gitlab:iconify-icons/react#boxicons",
     "@iconify-react/bxs": "gitlab:iconify-icons/react#bxs",
     "@iconify-react/coolicons": "gitlab:iconify-icons/react#coolicons",
     "@iconify-react/eva": "gitlab:iconify-icons/react#eva",

@@ -55,9 +55,6 @@ export function StickyControls({ seeds, visible, onShuffle }: StickyControlsProp
             <button className="sticky-ctrl__btn" onClick={onShuffle} title="Random palette" aria-label="Shuffle palette">
               <Random1diceIcon height="1.5em" />
             </button>
-            {/* <button className="sticky-ctrl__btn" onClick={handleShare} aria-live="polite" aria-label="Copy share link">
-              {copied ? <CheckmarkFillIcon height="1em" /> : <ShareIcon height="1em" /> }
-            </button> */}
           </div>
         </motion.div>
       )}

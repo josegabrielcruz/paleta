@@ -158,6 +158,38 @@
   border-color: var(--app-border-hover);
 }
 
+/* ── CDN tab ──────────────────────────────────────────────────────────────── */
+.ep-cdn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ep-cdn__desc {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  color: var(--app-text-2);
+}
+
+.ep-cdn__vars {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  color: var(--app-text-3);
+}
+
+.ep-cdn__vars code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--app-text-2);
+}
+
+/* ep-fmt-btn--cdn gets a subtle link indicator */
+.ep-fmt-btn--cdn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* ── Reduced motion ──────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .ep-toggle__btn,

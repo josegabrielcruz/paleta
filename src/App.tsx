@@ -23,6 +23,7 @@ import ContrastMatrix from './components/ContrastMatrix'
 import { RecommendedPairs } from './components/RecommendedPairs'
 import ComponentPreview from './components/ComponentPreview'
 import ExportPanel from './components/ExportPanel'
+import { GradientGenerator } from './components/GradientGenerator'
 import { Analytics } from '@vercel/analytics/react';
 
 // ─── URL state codec ──────────────────────────────────────────────────────────
@@ -204,6 +205,10 @@ export default function App() {
             <div id="section-export">
               <SectionHeading number="05" title="Export" />
               <FadeInSection><ExportPanel lightScale={lightScale} darkScale={darkScale} multiPalette={multiPalette} /></FadeInSection>
+            </div>
+            <div id="section-gradients">
+              <SectionHeading number="06" title="Gradients" />
+              <FadeInSection><GradientGenerator multiPalette={multiPalette} /></FadeInSection>
             </div>
           </div>
         </div>

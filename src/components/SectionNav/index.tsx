@@ -3,11 +3,12 @@ import { useActiveSection } from '../../hooks/useActiveSection'
 import './SectionNav.css'
 
 export const SECTION_NAV_ITEMS = [
-  { id: 'section-scales',   label: 'Scales'   },
-  { id: 'section-tokens',   label: 'Tokens'   },
-  { id: 'section-contrast', label: 'Contrast' },
-  { id: 'section-preview',  label: 'Preview'  },
-  { id: 'section-export',   label: 'Export'   },
+  { id: 'section-scales',    label: 'Scales'    },
+  { id: 'section-tokens',    label: 'Tokens'    },
+  { id: 'section-contrast',  label: 'Contrast'  },
+  { id: 'section-preview',   label: 'Preview'   },
+  { id: 'section-export',    label: 'Export'    },
+  { id: 'section-gradients', label: 'Gradients' },
 ] as const
 
 interface SectionNavProps {
