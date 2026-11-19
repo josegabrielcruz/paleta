@@ -16,6 +16,7 @@ import SeedRow from './components/SeedRow'
 import SimulationBar from './components/SimulationBar'
 import { P3ModeBar } from './components/P3ModeBar'
 import DiscoveryBar from './components/DiscoveryBar'
+import { usePaletteHistory } from './hooks/usePaletteHistory'
 import MultiScaleDisplay from './components/MultiScaleDisplay'
 import DarkLightPair from './components/DarkLightPair'
 import SemanticTokenGrid from './components/SemanticTokenGrid'
@@ -96,6 +97,7 @@ export default function App() {
   }, [])
 
   const { theme, toggle: toggleTheme } = useTheme()
+  const { history, clearHistory } = usePaletteHistory(seeds)
   const multiPalette = useMultiPalette(seeds, p3Mode)
   const { lightScale, darkScale } = multiPalette.primary
   const activeFilter   = simulation !== 'none' ? `url(#${filterId(simulation)})` : undefined
@@ -167,7 +169,7 @@ export default function App() {
               />
             </motion.div>
             <motion.div {...mountItem(0.22)}>
-              <DiscoveryBar onApplyPreset={setSeeds} onShuffle={handleShuffle} />
+              <DiscoveryBar onApplyPreset={setSeeds} onShuffle={handleShuffle} history={history} onClearHistory={clearHistory} />
             </motion.div>
             <motion.div {...mountItem(0.26)}>
               <SimulationBar active={simulation} onChange={setSimulation} />

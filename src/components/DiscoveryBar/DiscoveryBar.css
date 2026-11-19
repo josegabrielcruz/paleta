@@ -15,6 +15,15 @@
   text-transform: uppercase;
   color: var(--app-text-3);
   flex-shrink: 0;
+  margin-top: 43px;
+}
+
+.disc-bar__label--history {
+  margin-top: 0;
+}
+
+.disc-bar__label.has-history {
+  margin-top: 0;
 }
 
 /* ── Preset swatches ─────────────────────────────────────────────────────── */
@@ -75,6 +84,40 @@
 .disc-bar__btn:hover {
   background: var(--btn-bg-hover);
   border-color: var(--app-border-hover);
+  color: var(--app-text-2);
+}
+
+/* ── Recent palette history ──────────────────────────────────────────────── */
+.disc-bar__recent-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+/* Compact history swatches — slightly smaller padding than presets */
+.disc-bar__preset--history {
+  padding: 10px 6px;
+}
+
+.disc-bar__clear {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--app-text-3);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  /* margin-left: auto; */
+  transition: color 0.15s ease;
+}
+
+.disc-bar__clear:hover {
   color: var(--app-text-2);
 }
 

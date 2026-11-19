@@ -1,20 +1,51 @@
 import { PRESETS, type Preset } from '../../lib/presets'
 import type { MultiSeeds } from '../../hooks/useMultiPalette'
+import type { HistoryEntry } from '../../hooks/usePaletteHistory'
 import Random1diceIcon from '@iconify-react/fad/random-1dice';
 import './DiscoveryBar.css'
 
 interface DiscoveryBarProps {
   onApplyPreset: (seeds: MultiSeeds) => void
   onShuffle: () => void
+  history?: HistoryEntry[]
+  onClearHistory?: () => void
 }
 
-export default function DiscoveryBar({ onApplyPreset, onShuffle }: DiscoveryBarProps) {
+export default function DiscoveryBar({ onApplyPreset, onShuffle, history, onClearHistory }: DiscoveryBarProps) {
 
   return (
     <div className="disc-bar" aria-label="Palette discovery">
 
+      {/* ── Recent palettes ── */}
+      {history && history.length > 0 && (
+        <div className="disc-bar__recent-row">
+          <span className="disc-bar__label disc-bar__label--history">Recent</span>
+          <div className="disc-bar__presets" role="list">
+            {history.map(entry => (
+              <button
+                key={entry.id}
+                role="listitem"
+                className="disc-bar__preset disc-bar__preset--history"
+                onClick={() => onApplyPreset(entry.seeds)}
+                title={`${entry.seeds.primary} · ${entry.seeds.secondary} · ${entry.seeds.neutral}`}
+                aria-label={`Restore palette ${entry.seeds.primary}`}
+              >
+                <span className="disc-bar__dot" style={{ backgroundColor: entry.seeds.primary }}  aria-hidden="true" />
+                <span className="disc-bar__dot" style={{ backgroundColor: entry.seeds.secondary }} aria-hidden="true" />
+                <span className="disc-bar__dot" style={{ backgroundColor: entry.seeds.neutral }}   aria-hidden="true" />
+              </button>
+            ))}
+            {onClearHistory && (
+            <button className="disc-bar__clear" onClick={onClearHistory} aria-label="Clear palette history">
+              Clear
+            </button>
+          )}
+          </div>
+        </div>
+      )}
+
       {/* ── Preset swatches ── */}
-      <p className="disc-bar__label">Presets</p>
+      <p className={`disc-bar__label ${history && history.length ? 'has-history' : ''}`}>Presets</p>
       <div className="disc-bar__presets" role="list">
         {PRESETS.map((p: Preset) => (
           <button
